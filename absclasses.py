@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import Type
+import uuid
 
-class AbsItemId(ABC):
+class ItemId():
     @abstractmethod
     def __init__(self):
         pass
@@ -10,7 +11,7 @@ class AbsItemId(ABC):
     def get_id(self):
         pass
 
-class AbsPayee(ABC):
+class Payee(ABC):
     @abstractmethod
     def __init__(self, name: str) -> None:
         pass
@@ -20,7 +21,7 @@ class AbsPayee(ABC):
         pass
 
 
-class AbsTag(ABC):
+class Tag(ABC):
     @abstractmethod
     def __init__(self, name: str) -> None:
         pass
@@ -30,14 +31,14 @@ class AbsTag(ABC):
         pass        
 
 
-class AbsAccount(ABC):
+class Account(ABC):
     @abstractmethod
-    def __init__(self, acct_num: str, balance: float,
-                 active_acct: bool) -> None:
+    def __init__(self, account_id: str, balance: float, owner: str, 
+        account_status: bool) -> None:
         pass
 
     @abstractmethod
-    def get_acct_num(self) -> str:
+    def get_account_id(self) -> str:
         pass
 
     @abstractmethod
@@ -45,11 +46,11 @@ class AbsAccount(ABC):
         pass
 
     @abstractmethod
-    def is_active_accnt(self) -> bool:
+    def is_active(self) -> bool:
         pass
 
 
-class AbsBudget(ABC):
+class Budget(ABC):
     @abstractmethod
     def __init__(self, name: str, balance: float, category: str) -> None:
         pass
@@ -67,9 +68,9 @@ class AbsBudget(ABC):
         pass
 
 
-class AbsTransaction(ABC):
+class Transaction(ABC):
     @abstractmethod
-    def __init__(self, amount: float, affected_acct: AbsAccount, 
+    def __init__(self, amount: float, affected_account: AbsAccount, 
                  category: str, description: str, payee: str,
                  tag: str, date: str, cleared_status: bool) -> None:
         pass
@@ -79,7 +80,7 @@ class AbsTransaction(ABC):
         pass
 
     @abstractmethod
-    def get_affected_acct(self) -> AbsAccount:
+    def get_affected_account(self) -> AbsAccount:
         pass
 
     @abstractmethod
